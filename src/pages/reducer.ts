@@ -3,8 +3,6 @@ import { GalleryActionTypes, LOAD_GALLERY_FAILED, LOAD_GALLERY_START, LOAD_GALLE
 
 const initialState: GalleryState = {
   images: [],
-  page: 0,
-  moreAvailable: true
 };
 
 export const galleryReducer = (state = initialState, action: GalleryActionTypes): GalleryState => {
@@ -12,19 +10,16 @@ export const galleryReducer = (state = initialState, action: GalleryActionTypes)
     case LOAD_GALLERY_START:
       return {
         ...state,
-        page: state.page + 1
       };
     case LOAD_GALLERY_SUCCESS:
       return {
         ...state,
         images: [...state.images, ...action.payload],
-        moreAvailable: action.payload.length > 0
       };
     case LOAD_GALLERY_FAILED:
       return {
         ...state,
         images: [],
-        moreAvailable: false,
       };
     default:
       return state;

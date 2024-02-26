@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: "https://api.thecatapi.com/v1/images",
+  baseUrl: "https://api.thedogapi.com/v1/images/",
   headers: {
     "Content-Type": "application/json"
   }
@@ -24,6 +24,7 @@ class FetchCats {
   }
 
   _checkResponse(res: Response) {
+    console.log("!!! fetch cats", res)
     if (res.status === 200) {
       return res.json()
     }
@@ -33,9 +34,9 @@ class FetchCats {
   }
   //todo: searchlimit
   getCats() {
-    return fetch(`${this._url}/search?limit=10`).then(this._checkResponse)
+    return fetch(`${this._url}search?limit=10`).then(this._checkResponse)
   }
-};
+}
 
 const fetchCats = new FetchCats(config);
 export default fetchCats;

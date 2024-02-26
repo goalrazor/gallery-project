@@ -5,8 +5,6 @@ export interface Image {
 
 export interface GalleryState {
   images: Image[];
-  page: number;
-  moreAvailable: boolean;
 }
 
 export type RawImage = {

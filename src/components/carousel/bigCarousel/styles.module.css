@@ -1,0 +1,84 @@
+.imageContainer {
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    transition: transform 0.5s ease-in-out;
+}
+
+.image {
+    width: 800px;
+    height: 400px;
+    object-fit: cover;
+}
+
+.image:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.activeSlide {
+    display: block;
+}
+
+.slider {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.slide {
+    display: none;
+}
+
+.sliderButton {
+    display: block;
+    width: 50%;
+    cursor: pointer;
+}
+
+.sliderButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.modal {
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modalImage {
+    width: auto;
+    height: 100%;
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+.modalContent {
+    background: rgba(0,0,0,0.6);
+    position: relative;
+    width: 1190px;
+    height: 700px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.modalBackground {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    background: no-repeat center/cover;
+    filter: blur(30px);
+    z-index: -1;
+}

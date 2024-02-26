@@ -1,10 +1,13 @@
-import { GalleryActionTypes } from "../../components/gallery/actions";
+import { GalleryActionTypes } from "../../pages/actions";
 import thunk, { ThunkAction } from "redux-thunk";
 import { Action, ActionCreator, combineReducers, createStore, applyMiddleware, compose } from "redux";
-import { galleryReducer } from "../../components/gallery/reducer";
+import { galleryReducer } from "../../pages/reducer";
+import { CarouselActionTypes } from "../../components/carousel/actions";
+import carouselReducer from "../../components/carousel/reducer";
 
 const rootReducer = combineReducers({
   galleryReducer,
+  carouselReducer,
 })
 
 
@@ -15,7 +18,7 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 export const store = createStore(rootReducer, enhancer);
 
-type TAppActions = GalleryActionTypes;
+type TAppActions = GalleryActionTypes | CarouselActionTypes;
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

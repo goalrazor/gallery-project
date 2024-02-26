@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import GalleryPage from "../../pages/galleryPage";
 import { useAppDispatch } from "../../services/hooks/hooks";
-import { getImages } from "../gallery/actions";
+import { getImages } from "../../pages/actions";
 
 
 const App = () => {

@@ -1,0 +1,64 @@
+.galleryPreviewWrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.imagesList {
+    display: flex;
+    gap: 10px;
+    transition: transform 0.5s ease-in-out;
+    height: 50px;
+    justify-content: center;
+}
+
+.slide {
+    flex: 1 0 100%;
+    margin-right: 10px;
+    display: none;
+}
+
+.activeSlide img {
+    width: 100px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.activeSlide img:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.activeSlide {
+    display: flex;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover,
+.next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.bigGalleryActiveImg {
+    opacity: 0.5;
+    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.5)
+}
