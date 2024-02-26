@@ -2,12 +2,13 @@ import { useAppDispatch, useAppSelector } from "../../../services/hooks/hooks";
 import styles from "./styles.module.css";
 import React, { useEffect, useState } from "react";
 import { setActiveImageIndex } from "../actions";
+import { getImages } from "../../../pages/galleryPage/actions";
 
-interface IGalleryPreview {
+interface ISmallCarousel {
   itemsToShow?: number;
 }
 
-const SmallCarousel: React.FC<IGalleryPreview> = ({ itemsToShow = 8 }) => {
+const SmallCarousel: React.FC<ISmallCarousel> = ({ itemsToShow = 8 }) => {
   const dispatch = useAppDispatch();
   const images = useAppSelector(store => store.galleryReducer.images);
   const bigCarouselIndex = useAppSelector(store => store.carouselReducer.activeImageIndex);
@@ -29,16 +30,15 @@ const SmallCarousel: React.FC<IGalleryPreview> = ({ itemsToShow = 8 }) => {
   };
 
   const goToPrevSlide = () => {
-    if (smallCarouselIndex - 1 < 0) {
-      setSmallCarouselIndex(images.length - itemsToShow);
-    } else {
+    if (smallCarouselIndex > 0) {
       setSmallCarouselIndex(smallCarouselIndex - 1);
     }
   };
 
-  const goToNextSlide = () => {
-    if (smallCarouselIndex + 1 >= images.length - itemsToShow + 1) {
-      setSmallCarouselIndex(0);
+  const goToNextSlide = async () => {
+    if (smallCarouselIndex >= images.length - itemsToShow) {
+      await dispatch(getImages());
+      setSmallCarouselIndex(smallCarouselIndex + 1);
     } else {
       setSmallCarouselIndex(smallCarouselIndex + 1);
     }
@@ -46,21 +46,19 @@ const SmallCarousel: React.FC<IGalleryPreview> = ({ itemsToShow = 8 }) => {
 
   return (
     <div className={styles.galleryPreviewWrapper}>
-      <button className={styles.prev} onClick={goToPrevSlide}>
+      <button className={`${styles.prev} ${smallCarouselIndex === 0 && styles.disabledButton}`} onClick={goToPrevSlide} disabled={smallCarouselIndex === 0}>
         &#10094;
       </button>
-      <div className={styles.imagesList}>
-        <>
+      <ul className={styles.imagesList}>
         {images
           .map((image, index) => (
-          <div key={index}
+          <li key={index}
                className={`${(index >= smallCarouselIndex && index < smallCarouselIndex + itemsToShow) ? styles.activeSlide : styles.slide}
                 ${index === bigCarouselIndex && styles.bigGalleryActiveImg}`}>
           <img src={image.url} alt="" onClick={() => handleImageClick(index)}/>
-          </div>
+          </li>
         ))}
-        </>
-      </div>
+      </ul>
       <button className={styles.next} onClick={goToNextSlide}>
         &#10095;
       </button>

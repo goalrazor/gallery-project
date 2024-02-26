@@ -3,6 +3,8 @@
     height: 400px;
     margin: auto;
     transition: transform 0.5s ease-in-out;
+    list-style: none;
+    padding-left: 0;
 }
 
 .image {
@@ -81,4 +83,12 @@
     background: no-repeat center/cover;
     filter: blur(30px);
     z-index: -1;
+}
+
+.disabledButton {
+    cursor: auto;
+}
+
+.disabledButton:hover {
+    background: none;
 }

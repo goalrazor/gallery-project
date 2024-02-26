@@ -12,6 +12,7 @@ export const galleryReducer = (state = initialState, action: GalleryActionTypes)
         ...state,
       };
     case LOAD_GALLERY_SUCCESS:
+
       return {
         ...state,
         images: [...state.images, ...action.payload],

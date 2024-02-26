@@ -24,7 +24,6 @@ class FetchCats {
   }
 
   _checkResponse(res: Response) {
-    console.log("!!! fetch cats", res)
     if (res.status === 200) {
       return res.json()
     }
@@ -32,10 +31,10 @@ class FetchCats {
       throw res.message
     })
   }
-  //todo: searchlimit
-  getCats() {
-    return fetch(`${this._url}search?limit=10`).then(this._checkResponse)
+  getCats(count: number) {
+    return fetch(`${this._url}search?limit=${count}`).then(this._checkResponse)
   }
+
 }
 
 const fetchCats = new FetchCats(config);

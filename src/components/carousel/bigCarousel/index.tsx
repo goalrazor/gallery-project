@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../../services/hooks/hooks";
 import styles from "./styles.module.css";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { setActiveImageIndex } from "../actions";
+import { getImages } from "../../../pages/galleryPage/actions";
 
 const BigCarousel = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +10,7 @@ const BigCarousel = () => {
   const activeImageIndex = useAppSelector(store => store.carouselReducer.activeImageIndex);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState("");
 
   const openModal = (src: string, event: SyntheticEvent) => {
     event.stopPropagation();
@@ -22,41 +23,41 @@ const BigCarousel = () => {
   };
 
   useEffect(() => {
-    setActiveIndex(activeImageIndex)
-  }, [activeImageIndex])
+    setActiveIndex(activeImageIndex);
+  }, [activeImageIndex]);
 
-  const goToNextSlide = () => {
-    let index = activeIndex;
-    let imagesLength = images.length;
-    index = ((index < imagesLength - 1) ? index + 1 : 0);
-    setActiveIndex(index);
-    dispatch(setActiveImageIndex(index))
+  const goToNextSlide = async () => {
+    if (activeIndex === images.length - 1) {
+      await dispatch(getImages());
+      setActiveIndex(activeIndex + 1);
+    } else {
+      setActiveIndex(activeIndex + 1);
+    }
+    dispatch(setActiveImageIndex(activeIndex + 1));
   };
 
   const goToPrevSlide = () => {
-    let index = activeIndex;
-    let imagesLength = images.length;
-    index = ((index > 0) ? index - 1 : imagesLength - 1);
-    setActiveIndex(index);
-    dispatch(setActiveImageIndex(index))
+    if (activeIndex > 0) {
+      dispatch(setActiveImageIndex(activeIndex - 1));
+    }
   };
 
   return (
     <div className={styles.slider} onClick={() => setShowModal(false)}>
-      <div className={styles.sliderButton} onClick={goToPrevSlide}>
+      <div className={`${styles.sliderButton} ${activeIndex === 0 && styles.disabledButton}`} onClick={goToPrevSlide}>
       </div>
-      <div className={styles.imageContainer}>
+      <ul className={styles.imageContainer}>
         {images.map((image, index) => (
-          <div key={index} className={index === activeIndex ? `${styles.activeSlide}` : `${styles.slide}`}>
+          <li key={index} className={index === activeIndex ? `${styles.activeSlide}` : `${styles.slide}`}>
             <img
               className={styles.image}
               src={image.url}
               alt=""
               onClick={(event) => openModal(image.url, event)}
             />
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       <div className={styles.sliderButton} onClick={goToNextSlide}>
       </div>
       {showModal && (
@@ -65,7 +66,7 @@ const BigCarousel = () => {
             <div
               className={styles.modalBackground}
               style={{
-                backgroundImage: `url(${selectedImage})`,
+                backgroundImage: `url(${selectedImage})`
               }}
             />
             <img className={styles.modalImage} src={selectedImage} alt="" />

@@ -11,6 +11,8 @@
     transition: transform 0.5s ease-in-out;
     height: 50px;
     justify-content: center;
+    list-style: none;
+    padding-left: 0;
 }
 
 .slide {
@@ -61,4 +63,14 @@
 .bigGalleryActiveImg {
     opacity: 0.5;
     box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.5)
+}
+
+.disabledButton {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+}
+
+.disabledButton:hover {
+    cursor: auto;
+    opacity: 0.5;
 }
